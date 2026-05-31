@@ -75,6 +75,14 @@
         text-align: right;
     }
 
+    .kategori-modal-readonly {
+        flex: 1;
+        text-align: right;
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+    }
+
     .kategori-modal-field--file input[type="file"] {
         flex: 1;
         max-width: 220px;

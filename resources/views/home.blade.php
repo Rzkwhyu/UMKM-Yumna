@@ -544,10 +544,10 @@
                             <tbody>
                                 @forelse($transaksiTerakhir as $trx)
                                 <tr>
-                                    <td class="trx-id">#{{ str_pad($trx->id, 4, '0', STR_PAD_LEFT) }}</td>
-                                    <td>{{ $trx->created_at->format('d') }} {{ ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][$trx->created_at->month - 1] }} {{ $trx->created_at->format('Y, H:i') }}</td>
+                                    <td class="trx-id">{{ $trx->label_nota }}</td>
+                                    <td>{{ $trx->tanggal->format('d') }} {{ ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][$trx->tanggal->month - 1] }} {{ $trx->tanggal->format('Y, H:i') }}</td>
                                     <td>{{ Auth::user()->name }}</td>
-                                    <td>{{ $trx->qty }}</td>
+                                    <td>{{ $trx->jumlah_item }}</td>
                                     <td>Rp {{ number_format($trx->total_harga, 0, ',', '.') }}</td>
                                     <td><span class="badge-selesai">Selesai</span></td>
                                 </tr>

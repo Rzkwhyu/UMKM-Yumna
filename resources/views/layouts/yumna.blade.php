@@ -14,6 +14,7 @@
     $hideHero = str_contains($bodyClass, 'page-kategori')
         || str_contains($bodyClass, 'page-suplier')
         || str_contains($bodyClass, 'page-barang')
+        || str_contains($bodyClass, 'page-stokbarang')
         || str_contains($bodyClass, 'page-transaksi')
         || str_contains($bodyClass, 'page-transaksi-pos')
         || str_contains($bodyClass, 'page-data')

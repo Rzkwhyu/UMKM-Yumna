@@ -45,7 +45,7 @@ class BarangController extends Controller
         }
 
         $validated = $validator->validated();
-        $validated['stok'] = $validated['stok'] ?? 0;
+        $validated['stok'] = 0;
         $validated['gambar'] = $this->storeGambar($request);
 
         Barang::create($validated);
@@ -74,7 +74,6 @@ class BarangController extends Controller
         }
 
         $validated = $validator->validated();
-        $validated['stok'] = $validated['stok'] ?? 0;
 
         if ($request->hasFile('gambar')) {
             $this->deleteGambar($barang->gambar);
@@ -110,7 +109,6 @@ class BarangController extends Controller
             'nama_barang' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
             'harga' => 'required|integer|min:0',
-            'stok' => 'nullable|integer|min:0',
             'gambar' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
         ];
     }
@@ -127,8 +125,6 @@ class BarangController extends Controller
             'harga.required' => 'Harga wajib diisi.',
             'harga.integer' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga tidak boleh negatif.',
-            'stok.integer' => 'Stok harus berupa angka.',
-            'stok.min' => 'Stok tidak boleh negatif.',
             'gambar.image' => 'Gambar harus berupa file gambar.',
             'gambar.mimes' => 'Gambar harus berformat JPEG, PNG, GIF, atau WEBP.',
             'gambar.max' => 'Ukuran gambar maksimal 2MB.',

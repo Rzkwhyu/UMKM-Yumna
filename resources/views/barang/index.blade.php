@@ -69,7 +69,7 @@
             </div>
             <div>
                 <h2>Data Barang</h2>
-                <p>Kelola daftar barang dan informasi stok</p>
+                <p>Kelola daftar barang dan harga jual</p>
             </div>
         </div>
 
@@ -117,7 +117,6 @@
                             data-nama="{{ $item->nama_barang }}"
                             data-kategori-id="{{ $item->kategori_id }}"
                             data-harga="{{ $item->harga }}"
-                            data-stok="{{ $item->stok }}"
                             data-gambar="{{ $item->gambar ? asset($item->gambar) : '' }}"
                             data-update-url="{{ route('barang.update', $item->id) }}"
                         >Edit</button>
@@ -183,7 +182,6 @@
         const editInputNamaBarang = document.getElementById('editInputNamaBarang');
         const editInputKategoriId = document.getElementById('editInputKategoriId');
         const editInputHarga = document.getElementById('editInputHarga');
-        const editInputStok = document.getElementById('editInputStok');
         const editInputGambar = document.getElementById('editInputGambar');
         const editGambarPreviewWrap = document.getElementById('editGambarPreviewWrap');
         const editGambarPreview = document.getElementById('editGambarPreview');
@@ -216,7 +214,6 @@
             if (editInputNamaBarang) editInputNamaBarang.value = data.nama || '';
             if (editInputKategoriId) editInputKategoriId.value = data.kategoriId || '';
             if (editInputHarga) editInputHarga.value = data.harga || '';
-            if (editInputStok) editInputStok.value = data.stok ?? 0;
             if (editInputGambar) editInputGambar.value = '';
 
             if (editGambarPreviewWrap && editGambarPreview) {
@@ -267,7 +264,6 @@
                     nama: btn.dataset.nama,
                     kategoriId: btn.dataset.kategoriId,
                     harga: btn.dataset.harga,
-                    stok: btn.dataset.stok,
                     gambar: btn.dataset.gambar,
                 });
             });

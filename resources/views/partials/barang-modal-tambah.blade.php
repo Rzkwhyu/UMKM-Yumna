@@ -59,23 +59,6 @@
 
             <div class="kategori-modal-divider"></div>
 
-            <div class="kategori-modal-field kategori-modal-field--row">
-                <label for="inputStok">Stok</label>
-                <input
-                    type="number"
-                    name="stok"
-                    id="inputStok"
-                    value="{{ old('stok', 0) }}"
-                    placeholder="Masukan Stok..."
-                    min="0"
-                >
-            </div>
-            @error('stok')
-                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
-            @enderror
-
-            <div class="kategori-modal-divider"></div>
-
             <div class="kategori-modal-field kategori-modal-field--row kategori-modal-field--file">
                 <label for="inputGambar">Gambar</label>
                 <input

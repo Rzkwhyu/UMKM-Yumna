@@ -1,68 +1,11 @@
-<h1>Tambah Barang Masuk</h1>
+@extends('layouts.yumna')
 
-<form action="{{ route('stokbarang.store') }}"
-      method="POST">
+@section('body-class', 'page-yumna page-stokbarang')
 
-    @csrf
+@section('title', 'Tambah Barang Masuk — Yumna')
 
-    <select name="barang_id" required>
-
-        <option value="">
-            -- Pilih Barang --
-        </option>
-
-        @foreach ($barang as $item)
-
-            <option value="{{ $item->id }}">
-                {{ $item->nama_barang }}
-            </option>
-
-        @endforeach
-
-    </select>
-
-    <br><br>
-
-    <input type="date"
-           name="tanggal_masuk"
-           required>
-
-    <br><br>
-
-    <input type="text"
-           name="no_transaksi"
-           placeholder="No Transaksi"
-           required>
-
-    <br><br>
-
-    <select name="suplier_id" required>
-
-        <option value="">
-            -- Pilih Supplier --
-        </option>
-
-        @foreach ($suplier as $item)
-
-            <option value="{{ $item->id }}">
-                {{ $item->nama_pt }}
-            </option>
-
-        @endforeach
-
-    </select>
-
-    <br><br>
-
-    <input type="number"
-           name="qty"
-           placeholder="Qty"
-           required>
-
-    <br><br>
-
-    <button type="submit">
-        Simpan
-    </button>
-
-</form>
+@section('content')
+<script>
+    window.location.replace(@json(route('stokbarang.index', ['modal' => 'tambah'])));
+</script>
+@endsection

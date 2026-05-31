@@ -72,23 +72,6 @@
 
             <div class="kategori-modal-divider"></div>
 
-            <div class="kategori-modal-field kategori-modal-field--row">
-                <label for="editInputStok">Stok</label>
-                <input
-                    type="number"
-                    name="stok"
-                    id="editInputStok"
-                    value="{{ old('stok', $editBarang->stok ?? 0) }}"
-                    placeholder="Masukan Stok..."
-                    min="0"
-                >
-            </div>
-            @error('stok')
-                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
-            @enderror
-
-            <div class="kategori-modal-divider"></div>
-
             <div class="kategori-modal-logo-preview" id="editGambarPreviewWrap" @if(!($editBarang && $editBarang->gambar)) hidden @endif>
                 <img
                     id="editGambarPreview"
