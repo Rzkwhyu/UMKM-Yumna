@@ -1,42 +1,14 @@
-<h1>Tambah Barang</h1>
+@extends('layouts.yumna')
 
-<form action="{{ route('barang.store') }}" method="POST">
-    @csrf
+@section('body-class', 'page-yumna page-barang')
 
-    <input type="text"
-           name="nama_barang"
-           placeholder="Nama Barang">
+@section('title', 'Tambah Barang — Yumna')
 
-    <br><br>
+@section('content')
+@endsection
 
-    <select name="kategori_id">
-
-        @foreach ($kategori as $item)
-
-            <option value="{{ $item->id }}">
-                {{ $item->kategori }}
-            </option>
-
-        @endforeach
-
-    </select>
-
-    <br><br>
-
-    <input type="number"
-           name="harga"
-           placeholder="Harga">
-
-    <br><br>
-
-    <input type="text"
-           name="gambar"
-           placeholder="Nama Gambar">
-
-    <br><br>
-
-    <button type="submit">
-        Simpan
-    </button>
-
-</form>
+@push('scripts')
+<script>
+    window.location.replace(@json(route('barang.index', ['modal' => 'tambah'])));
+</script>
+@endpush

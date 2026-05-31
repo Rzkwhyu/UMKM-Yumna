@@ -11,10 +11,11 @@ class Transaksi extends Model
     use HasFactory;
 
     protected $fillable = [
+        'no_transaksi',
         'barang_id',
         'nama_pembeli',
         'qty',
-        'total_harga'
+        'total_harga',
     ];
 
     public function barang()

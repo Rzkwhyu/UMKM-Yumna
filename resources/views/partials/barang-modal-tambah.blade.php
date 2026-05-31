@@ -1,0 +1,98 @@
+<div
+    class="kategori-modal-overlay {{ (request('modal') === 'tambah' || ($errors->any() && request('modal') !== 'edit')) ? 'is-open' : '' }}"
+    id="barangModalOverlay"
+    aria-hidden="{{ (request('modal') === 'tambah' || ($errors->any() && request('modal') !== 'edit')) ? 'false' : 'true' }}"
+>
+    <div class="kategori-modal kategori-modal--tall" role="dialog" aria-labelledby="barangModalTitle" aria-modal="true">
+        <form action="{{ route('barang.store') }}" method="POST" id="formTambahBarang" enctype="multipart/form-data">
+            @csrf
+
+            <div class="kategori-modal-field">
+                <input
+                    type="text"
+                    name="nama_barang"
+                    id="inputNamaBarang"
+                    value="{{ old('nama_barang') }}"
+                    placeholder="Masukan Nama Barang..."
+                    autocomplete="off"
+                    required
+                >
+                @error('nama_barang')
+                    <span class="kategori-modal-error">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="kategori-modal-divider"></div>
+
+            <div class="kategori-modal-field kategori-modal-field--row">
+                <label for="inputKategoriId">Kategori</label>
+                <select name="kategori_id" id="inputKategoriId" required>
+                    <option value="">Pilih Kategori</option>
+                    @foreach ($kategori as $item)
+                        <option value="{{ $item->id }}" {{ (string) old('kategori_id') === (string) $item->id ? 'selected' : '' }}>
+                            {{ $item->kategori }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @error('kategori_id')
+                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
+            @enderror
+
+            <div class="kategori-modal-divider"></div>
+
+            <div class="kategori-modal-field kategori-modal-field--row">
+                <label for="inputHarga">Harga</label>
+                <input
+                    type="number"
+                    name="harga"
+                    id="inputHarga"
+                    value="{{ old('harga') }}"
+                    placeholder="Masukan Harga..."
+                    min="0"
+                    required
+                >
+            </div>
+            @error('harga')
+                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
+            @enderror
+
+            <div class="kategori-modal-divider"></div>
+
+            <div class="kategori-modal-field kategori-modal-field--row">
+                <label for="inputStok">Stok</label>
+                <input
+                    type="number"
+                    name="stok"
+                    id="inputStok"
+                    value="{{ old('stok', 0) }}"
+                    placeholder="Masukan Stok..."
+                    min="0"
+                >
+            </div>
+            @error('stok')
+                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
+            @enderror
+
+            <div class="kategori-modal-divider"></div>
+
+            <div class="kategori-modal-field kategori-modal-field--row kategori-modal-field--file">
+                <label for="inputGambar">Gambar</label>
+                <input
+                    type="file"
+                    name="gambar"
+                    id="inputGambar"
+                    accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+                >
+            </div>
+            @error('gambar')
+                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
+            @enderror
+
+            <div class="kategori-modal-actions">
+                <button type="submit" class="kategori-btn-simpan">Simpan</button>
+                <button type="button" class="kategori-btn-hapus" id="btnTutupModalBarang">Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -121,17 +121,26 @@
     }
 
     body.page-kategori,
-    body.page-suplier {
+    body.page-suplier,
+    body.page-barang,
+    body.page-transaksi,
+    body.page-transaksi-pos {
         --yumna-header-h: 118px;
     }
 
     body.page-kategori .yumna-main,
-    body.page-suplier .yumna-main {
+    body.page-suplier .yumna-main,
+    body.page-barang .yumna-main,
+    body.page-transaksi .yumna-main,
+    body.page-transaksi-pos .yumna-main {
         padding-top: var(--yumna-hero-gap);
     }
 
     body.page-kategori .yumna-content,
-    body.page-suplier .yumna-content {
+    body.page-suplier .yumna-content,
+    body.page-barang .yumna-content,
+    body.page-transaksi .yumna-content,
+    body.page-transaksi-pos .yumna-content {
         flex: 1 1 auto;
         min-height: 0;
         height: 100%;

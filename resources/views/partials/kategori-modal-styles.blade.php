@@ -24,6 +24,11 @@
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
     }
 
+    .kategori-modal--tall {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
     .kategori-modal-field input {
         width: 100%;
         border: none;
@@ -55,6 +60,19 @@
     .kategori-modal-field--row input {
         text-align: right;
         flex: 1;
+    }
+
+    .kategori-modal-field--row select {
+        flex: 1;
+        max-width: 220px;
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 14px;
+        color: #374151;
+        font-family: inherit;
+        cursor: pointer;
+        text-align: right;
     }
 
     .kategori-modal-field--file input[type="file"] {
