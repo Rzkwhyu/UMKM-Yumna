@@ -19,7 +19,9 @@
 
     <div class="header-right">
         <span class="greeting">Hi, {{ Auth::user()->name }}!</span>
-        <img class="avatar" src="https://i.pravatar.cc/100?u={{ Auth::id() }}" alt="Profil">
+        <a href="{{ route('profile.index') }}" title="Profile">
+            <img class="avatar" src="{{ Auth::user()->avatar_url }}" alt="Profil">
+        </a>
         <a href="{{ route('transaksi.create') }}" class="cart-btn" title="Keranjang">
             <i class="fa-solid fa-cart-shopping"></i>
         </a>

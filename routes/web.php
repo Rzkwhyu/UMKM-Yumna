@@ -7,6 +7,7 @@ use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanKeuanganController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +35,9 @@ Route::get('transaksi/cetak-nota', [TransaksiController::class, 'cetakNota'])->n
 Route::resource('transaksi', TransaksiController::class);
 Route::delete('transaksi/nota/hapus', [TransaksiController::class, 'destroyNota'])->name('transaksi.destroy-nota');
 Route::get('laporan', [LaporanKeuanganController::class, 'index'])->name('laporan.index');
+
+Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('profile/password', [ProfileController::class, 'editPassword'])->name('profile.password');
+Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');

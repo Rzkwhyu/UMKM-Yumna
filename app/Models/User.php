@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -19,7 +21,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'address',
+        'avatar',
         'password',
     ];
 
@@ -42,4 +47,36 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * URL foto profil untuk tampilan.
+     */
+    protected function avatarUrl(): Attribute
+    {
+        return Attribute::get(function (): string {
+            if ($this->avatar) {
+                return asset($this->avatar);
+            }
+
+            return 'https://i.pravatar.cc/200?u=' . $this->id;
+        });
+    }
+
+    /**
+     * Username dengan prefix @ untuk tampilan.
+     */
+    protected function displayUsername(): Attribute
+    {
+        return Attribute::get(function (): string {
+            if ($this->username) {
+                return str_starts_with($this->username, '@')
+                    ? $this->username
+                    : '@' . $this->username;
+            }
+
+            $slug = Str::slug(Str::before($this->email, '@'), '');
+
+            return '@' . ($slug ?: 'user' . $this->id);
+        });
+    }
 }

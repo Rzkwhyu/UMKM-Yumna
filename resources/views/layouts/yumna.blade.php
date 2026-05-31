@@ -18,6 +18,9 @@
         || str_contains($bodyClass, 'page-transaksi')
         || str_contains($bodyClass, 'page-transaksi-pos')
         || str_contains($bodyClass, 'page-data')
+        || str_contains($bodyClass, 'page-profile')
+        || str_contains($bodyClass, 'page-profile-edit')
+        || str_contains($bodyClass, 'page-profile-password')
         || trim($__env->yieldContent('hide-hero')) !== '';
 @endphp
 <body class="{{ $bodyClass }}">

@@ -171,12 +171,22 @@
         white-space: nowrap;
     }
 
+    .header-right > a {
+        display: inline-flex;
+        line-height: 0;
+    }
+
     .avatar {
         width: 44px;
         height: 44px;
         border-radius: 50%;
         object-fit: cover;
         border: 2px solid rgba(255, 255, 255, 0.8);
+        transition: transform 0.15s;
+    }
+
+    .header-right > a:hover .avatar {
+        transform: scale(1.05);
     }
 
     .cart-btn {
