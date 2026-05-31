@@ -27,10 +27,10 @@
             </div>
             <div>
                 <h2>Riwayat Transaksi</h2>
-                <p>Daftar semua transaksi penjualan barang</p>
+                <p>Daftar transaksi penjualan</p>
             </div>
             <div class="panel-meta">
-                <strong>{{ $transaksi->count() }}</strong>
+                <strong>{{ $riwayatTransaksi->count() }}</strong>
                 Total transaksi
             </div>
         </div>
@@ -47,54 +47,72 @@
             <table class="trx-table">
                 <thead>
                     <tr>
-                        <th>No. Trx</th>
                         <th>No. Nota</th>
                         <th>Tanggal</th>
-                        <th>Pembeli</th>
-                        <th>Barang</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Status</th>
+                        <th>Rincian Barang</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="transaksiTableBody">
-                    @forelse ($transaksi as $trx)
+                    @forelse ($riwayatTransaksi as $group)
                         <tr
                             class="trx-row"
-                            data-trx-search="{{ strtolower(($trx->no_transaksi ?? '') . ' #' . str_pad($trx->id, 4, '0', STR_PAD_LEFT) . ' ' . $trx->nama_pembeli . ' ' . ($trx->barang?->nama_barang ?? '')) }}"
+                            data-trx-search="{{ $group->search_text }}"
                         >
-                            <td class="trx-id">#{{ str_pad($trx->id, 4, '0', STR_PAD_LEFT) }}</td>
-                            <td>{{ $trx->no_transaksi ?? '—' }}</td>
+                            <td class="trx-id">{{ $group->label_nota }}</td>
                             <td>
-                                {{ $trx->created_at->format('d') }}
-                                {{ $bulanSingkat[$trx->created_at->month - 1] }}
-                                {{ $trx->created_at->format('Y, H:i') }}
+                                {{ $group->tanggal->format('d') }}
+                                {{ $bulanSingkat[$group->tanggal->month - 1] }}
+                                {{ $group->tanggal->format('Y, H:i') }}
                             </td>
-                            <td>{{ $trx->nama_pembeli }}</td>
-                            <td>{{ $trx->barang?->nama_barang ?? '—' }}</td>
-                            <td>{{ $trx->qty }}</td>
-                            <td>Rp {{ number_format($trx->total_harga, 0, ',', '.') }}</td>
-                            <td><span class="badge-selesai">Selesai</span></td>
+                            <td class="trx-detail-cell">
+                                <table class="trx-item-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Barang</th>
+                                            <th>Harga Asli</th>
+                                            <th>Qty</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($group->item_details as $item)
+                                            <tr>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>Rp {{ number_format($item->harga_asli, 0, ',', '.') }}</td>
+                                                <td>{{ $item->qty }}</td>
+                                                <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="trx-foot-meta">
+                                                <span class="trx-count-badge">{{ $group->jumlah_item }} item</span>
+                                                <span class="trx-qty-total">Qty total: {{ $group->total_qty }}</span>
+                                            </td>
+                                            <td></td>
+                                            <td class="trx-total-label">Total</td>
+                                            <td class="trx-total-akumulasi">Rp {{ number_format($group->total_harga, 0, ',', '.') }}</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </td>
                             <td>
                                 <div class="trx-actions">
-                                    <a href="{{ route('transaksi.edit', $trx->id) }}" class="btn-edit">Edit</a>
-                                    <form
-                                        action="{{ route('transaksi.destroy', $trx->id) }}"
-                                        method="POST"
-                                        class="trx-form-delete"
-                                        onsubmit="return confirm('Hapus transaksi ini?')"
+                                    <a
+                                        href="{{ route('transaksi.cetak-nota', $group->is_grouped ? ['no' => $group->no_transaksi] : ['id' => $group->first_id]) }}"
+                                        target="_blank"
+                                        class="btn-cetak-nota"
                                     >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn-hapus">Hapus</button>
-                                    </form>
+                                        <i class="fa-solid fa-print"></i> Cetak Nota
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="empty-transaksi">
+                            <td colspan="4" class="empty-transaksi">
                                 Belum ada riwayat transaksi. Klik <strong>+ Tambah Transaksi</strong> untuk mencatat transaksi baru.
                             </td>
                         </tr>

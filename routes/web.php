@@ -29,4 +29,6 @@ Route::resource('kategori', KategoriController::class);
 Route::resource('barang', BarangController::class);
 Route::resource('suplier', SuplierController::class);
 Route::resource('stokbarang', StokBarangController::class);
+Route::get('transaksi/cetak-nota', [TransaksiController::class, 'cetakNota'])->name('transaksi.cetak-nota');
 Route::resource('transaksi', TransaksiController::class);
+Route::delete('transaksi/nota/hapus', [TransaksiController::class, 'destroyNota'])->name('transaksi.destroy-nota');

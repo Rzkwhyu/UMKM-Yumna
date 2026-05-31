@@ -111,7 +111,30 @@
     .trx-table {
         width: 100%;
         border-collapse: collapse;
-        min-width: 980px;
+        table-layout: fixed;
+        min-width: 940px;
+    }
+
+    .trx-table th:nth-child(1),
+    .trx-table td:nth-child(1) {
+        width: 195px;
+        min-width: 195px;
+    }
+
+    .trx-table th:nth-child(2),
+    .trx-table td:nth-child(2) {
+        width: 172px;
+        min-width: 172px;
+    }
+
+    .trx-table th:nth-child(3),
+    .trx-table td:nth-child(3) {
+        width: 430px;
+    }
+
+    .trx-table th:nth-child(4),
+    .trx-table td:nth-child(4) {
+        width: 140px;
     }
 
     .trx-table th {
@@ -119,7 +142,7 @@
         top: 0;
         z-index: 1;
         background: #faf7f2;
-        text-align: left;
+        text-align: center;
         font-size: 11px;
         font-weight: 600;
         color: #9ca3af;
@@ -148,28 +171,150 @@
     .trx-id {
         font-weight: 700;
         color: #1f2937;
+        white-space: nowrap;
     }
 
-    .badge-selesai {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
+    .trx-table td:nth-child(2) {
+        white-space: nowrap;
+    }
+
+    .trx-table td:nth-child(4) {
+        text-align: center;
+    }
+
+    .trx-detail-cell {
+        padding: 10px 12px;
+        vertical-align: top;
+    }
+
+    .trx-item-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        background: #fff;
+        border: 1px solid #ece7df;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .trx-item-table thead th {
+        position: static;
+        background: #f9fafb;
+        text-transform: none;
+        letter-spacing: 0;
         font-size: 12px;
         font-weight: 600;
-        color: #16a34a;
+        color: #6b7280;
+        padding: 8px 10px;
+        border-bottom: 1px solid #ece7df;
     }
 
-    .badge-selesai::before {
-        content: '';
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #22c55e;
+    .trx-item-table thead th:nth-child(1),
+    .trx-item-table tbody td:nth-child(1),
+    .trx-item-table tfoot td.trx-foot-meta {
+        text-align: left;
+        width: 38%;
+    }
+
+    .trx-item-table thead th:nth-child(2),
+    .trx-item-table tbody td:nth-child(2),
+    .trx-item-table tfoot td:nth-child(2) {
+        text-align: right;
+        width: 22%;
+        white-space: nowrap;
+    }
+
+    .trx-item-table thead th:nth-child(3),
+    .trx-item-table tbody td:nth-child(3),
+    .trx-item-table tfoot td.trx-total-label {
+        text-align: right;
+        width: 12%;
+        white-space: nowrap;
+    }
+
+    .trx-item-table thead th:nth-child(4),
+    .trx-item-table tbody td:nth-child(4),
+    .trx-item-table tfoot td.trx-total-akumulasi {
+        text-align: right;
+        width: 28%;
+        white-space: nowrap;
+    }
+
+    .trx-item-table tbody td {
+        padding: 9px 10px;
+        font-size: 13px;
+        border-bottom: 1px solid #f3f4f6;
+        color: #374151;
+    }
+
+    .trx-item-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .trx-item-table tfoot td {
+        padding: 10px;
+        background: #faf7f2;
+        border-top: 1px solid #ece7df;
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    .trx-foot-meta {
+        text-align: left !important;
+    }
+
+    .trx-qty-total {
+        margin-left: 8px;
+        font-size: 12px;
+        color: #6b7280;
+    }
+
+    .trx-total-label {
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .trx-count-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #f3f4f6;
+        color: #4b5563;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .trx-total-akumulasi {
+        font-weight: 800;
+        color: #1f2937;
     }
 
     .trx-actions {
         display: flex;
         gap: 8px;
+        justify-content: center;
+    }
+
+    .btn-cetak-nota {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 9px;
+        font-size: 12px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: #6b7280;
+        transition: opacity 0.15s;
+        font-family: inherit;
+        white-space: nowrap;
+    }
+
+    .btn-cetak-nota:hover {
+        opacity: 0.9;
     }
 
     .btn-edit,
