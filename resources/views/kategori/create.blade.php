@@ -1,11 +1,14 @@
-<h1>Tambah Kategori</h1>
+@extends('layouts.yumna')
 
-<form action="{{ route('kategori.store') }}" method="POST">
-    @csrf
+@section('body-class', 'page-yumna page-kategori')
 
-    <input type="text" name="kategori" placeholder="Masukkan Nama Kategori">
+@section('title', 'Tambah Kategori — Yumna')
 
-    <button type="submit">
-        Simpan
-    </button>
-</form>
+@section('content')
+@endsection
+
+@push('scripts')
+<script>
+    window.location.replace(@json(route('kategori.index', ['modal' => 'tambah'])));
+</script>
+@endpush

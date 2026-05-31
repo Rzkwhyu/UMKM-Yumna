@@ -1,31 +1,14 @@
-<h1>Edit Suplier</h1>
+@extends('layouts.yumna')
 
-<form action="{{ route('suplier.update', $suplier->id) }}"
-      method="POST">
+@section('body-class', 'page-yumna page-suplier')
 
-    @csrf
-    @method('PUT')
+@section('title', 'Edit Supplier — Yumna')
 
-    <input type="text"
-           name="nama_pt"
-           value="{{ $suplier->nama_pt }}">
+@section('content')
+@endsection
 
-    <br><br>
-
-    <input type="text"
-           name="no_telp"
-           value="{{ $suplier->no_telp }}">
-
-    <br><br>
-
-    <input type="text"
-           name="logo"
-           value="{{ $suplier->logo }}">
-
-    <br><br>
-
-    <button type="submit">
-        Update
-    </button>
-
-</form>
+@push('scripts')
+<script>
+    window.location.replace(@json(route('suplier.index')));
+</script>
+@endpush

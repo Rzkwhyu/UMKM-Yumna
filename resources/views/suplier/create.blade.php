@@ -1,28 +1,14 @@
-<h1>Tambah Suplier</h1>
+@extends('layouts.yumna')
 
-<form action="{{ route('suplier.store') }}" method="POST">
-    @csrf
+@section('body-class', 'page-yumna page-suplier')
 
-    <input type="text"
-           name="nama_pt"
-           placeholder="Nama PT">
+@section('title', 'Tambah Supplier — Yumna')
 
-    <br><br>
+@section('content')
+@endsection
 
-    <input type="text"
-           name="no_telp"
-           placeholder="No Telp">
-
-    <br><br>
-
-    <input type="text"
-           name="logo"
-           placeholder="Logo">
-
-    <br><br>
-
-    <button type="submit">
-        Simpan
-    </button>
-
-</form>
+@push('scripts')
+<script>
+    window.location.replace(@json(route('suplier.index', ['modal' => 'tambah'])));
+</script>
+@endpush

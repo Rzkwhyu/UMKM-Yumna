@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Barang;
-use App\Models\Kategori;
-use App\Models\Suplier;
 use App\Models\Transaksi;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -17,7 +13,7 @@ class HomeController extends Controller
     }
 
     public function index()
-{
+    {
     $totalProduk = Barang::count();
 
     $barangHabis = Barang::where('stok','<=',20)->count();
@@ -34,23 +30,37 @@ class HomeController extends Controller
 
     $statusBarang = Barang::all();
     $transaksiTerakhir = Transaksi::latest()->take(5)->get();
-    $grafik = Transaksi::select(
-    DB::raw('DATE(created_at) as tanggal'),
-    DB::raw('SUM(total_harga) as total')
-    )
-    ->whereBetween('created_at', [
-        now()->startOfWeek(),
-        now()->endOfWeek()
-    ])
-    ->groupBy('tanggal')
-    ->get();
+
+    $hariLabels = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+    $penjualanMingguan = [];
+    $startOfWeek = now()->startOfWeek();
+
+    for ($i = 0; $i < 7; $i++) {
+        $penjualanMingguan[] = (int) Transaksi::whereDate(
+            'created_at',
+            $startOfWeek->copy()->addDays($i)->toDateString()
+        )->sum('total_harga');
+    }
+
+    $maxPenjualanMingguan = max($penjualanMingguan) ?: 1;
+    $maxStok = max((int) $statusBarang->max('stok'), 1);
+
+    $penjualanFormatted = $totalPenjualan >= 1_000_000
+        ? number_format($totalPenjualan / 1_000_000, 1, ',', '') . 'jt'
+        : number_format($totalPenjualan, 0, ',', '.');
+
     return view('home', compact(
-    'totalProduk',
-    'barangHabis',
-    'transaksiHariIni',
-    'totalPenjualan',
-    'transaksiTerakhir',
-    'statusBarang', 'grafik'
+        'totalProduk',
+        'barangHabis',
+        'transaksiHariIni',
+        'totalPenjualan',
+        'penjualanFormatted',
+        'transaksiTerakhir',
+        'statusBarang',
+        'hariLabels',
+        'penjualanMingguan',
+        'maxPenjualanMingguan',
+        'maxStok'
     ));
     }
-    }
+}

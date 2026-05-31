@@ -10,10 +10,11 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $transaksi = Transaksi::all();
+        $transaksi = Transaksi::with('barang')
+            ->latest()
+            ->get();
 
-        return view('transaksi.index',
-            compact('transaksi'));
+        return view('transaksi.index', compact('transaksi'));
     }
 
     public function create()
