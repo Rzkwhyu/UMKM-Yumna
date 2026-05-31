@@ -119,7 +119,7 @@ class TransaksiController extends Controller
                     ->with('error', 'Stok ' . $barang->nama_barang . ' tidak mencukupi.');
             }
 
-            $total += $barang->harga * $item['qty'];
+            $total += $barang->harga_jual * $item['qty'];
         }
 
         if ($validated['uang_bayar'] < $total) {
@@ -133,7 +133,7 @@ class TransaksiController extends Controller
         DB::transaction(function () use ($items, $barangMap, $namaPembeli, $noTransaksi) {
             foreach ($items as $item) {
                 $barang = $barangMap->get($item['barang_id']);
-                $lineTotal = $barang->harga * $item['qty'];
+                $lineTotal = $barang->harga_jual * $item['qty'];
 
                 Transaksi::create([
                     'no_transaksi' => $noTransaksi,
@@ -164,7 +164,7 @@ class TransaksiController extends Controller
     public function update(Request $request, $id)
     {
         $barang = Barang::findOrFail($request->barang_id);
-        $total = $barang->harga * $request->qty;
+        $total = $barang->harga_jual * $request->qty;
         $transaksi = Transaksi::findOrFail($id);
 
         $transaksi->update([

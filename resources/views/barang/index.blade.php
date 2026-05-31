@@ -69,7 +69,7 @@
             </div>
             <div>
                 <h2>Data Barang</h2>
-                <p>Kelola daftar barang dan harga jual</p>
+                <p>Kelola daftar barang, harga beli, dan harga jual</p>
             </div>
         </div>
 
@@ -106,7 +106,8 @@
                         <span>
                             {{ $item->kategori->kategori ?? '-' }}
                             · Stok {{ $item->stok }}
-                            · Rp {{ number_format($item->harga, 0, ',', '.') }}
+                            · Beli Rp {{ number_format($item->harga_beli, 0, ',', '.') }}
+                            · Jual Rp {{ number_format($item->harga_jual, 0, ',', '.') }}
                         </span>
                     </div>
                     <div class="kat-actions">
@@ -116,7 +117,8 @@
                             data-id="{{ $item->id }}"
                             data-nama="{{ $item->nama_barang }}"
                             data-kategori-id="{{ $item->kategori_id }}"
-                            data-harga="{{ $item->harga }}"
+                            data-harga-beli="{{ $item->harga_beli }}"
+                            data-harga-jual="{{ $item->harga_jual }}"
                             data-gambar="{{ $item->gambar ? asset($item->gambar) : '' }}"
                             data-update-url="{{ route('barang.update', $item->id) }}"
                         >Edit</button>
@@ -181,7 +183,8 @@
         const inputNamaBarang = document.getElementById('inputNamaBarang');
         const editInputNamaBarang = document.getElementById('editInputNamaBarang');
         const editInputKategoriId = document.getElementById('editInputKategoriId');
-        const editInputHarga = document.getElementById('editInputHarga');
+        const editInputHargaBeli = document.getElementById('editInputHargaBeli');
+        const editInputHargaJual = document.getElementById('editInputHargaJual');
         const editInputGambar = document.getElementById('editInputGambar');
         const editGambarPreviewWrap = document.getElementById('editGambarPreviewWrap');
         const editGambarPreview = document.getElementById('editGambarPreview');
@@ -213,7 +216,8 @@
             formEdit.action = data.updateUrl;
             if (editInputNamaBarang) editInputNamaBarang.value = data.nama || '';
             if (editInputKategoriId) editInputKategoriId.value = data.kategoriId || '';
-            if (editInputHarga) editInputHarga.value = data.harga || '';
+            if (editInputHargaBeli) editInputHargaBeli.value = data.hargaBeli || '';
+            if (editInputHargaJual) editInputHargaJual.value = data.hargaJual || '';
             if (editInputGambar) editInputGambar.value = '';
 
             if (editGambarPreviewWrap && editGambarPreview) {
@@ -263,7 +267,8 @@
                     updateUrl: btn.dataset.updateUrl,
                     nama: btn.dataset.nama,
                     kategoriId: btn.dataset.kategoriId,
-                    harga: btn.dataset.harga,
+                    hargaBeli: btn.dataset.hargaBeli,
+                    hargaJual: btn.dataset.hargaJual,
                     gambar: btn.dataset.gambar,
                 });
             });

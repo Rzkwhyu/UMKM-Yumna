@@ -108,7 +108,8 @@ class BarangController extends Controller
         return [
             'nama_barang' => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategoris,id',
-            'harga' => 'required|integer|min:0',
+            'harga_beli' => 'required|integer|min:0',
+            'harga_jual' => 'required|integer|min:0',
             'gambar' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
         ];
     }
@@ -122,9 +123,12 @@ class BarangController extends Controller
             'nama_barang.required' => 'Nama barang wajib diisi.',
             'kategori_id.required' => 'Kategori wajib dipilih.',
             'kategori_id.exists' => 'Kategori tidak valid.',
-            'harga.required' => 'Harga wajib diisi.',
-            'harga.integer' => 'Harga harus berupa angka.',
-            'harga.min' => 'Harga tidak boleh negatif.',
+            'harga_beli.required' => 'Harga beli wajib diisi.',
+            'harga_beli.integer' => 'Harga beli harus berupa angka.',
+            'harga_beli.min' => 'Harga beli tidak boleh negatif.',
+            'harga_jual.required' => 'Harga jual wajib diisi.',
+            'harga_jual.integer' => 'Harga jual harus berupa angka.',
+            'harga_jual.min' => 'Harga jual tidak boleh negatif.',
             'gambar.image' => 'Gambar harus berupa file gambar.',
             'gambar.mimes' => 'Gambar harus berformat JPEG, PNG, GIF, atau WEBP.',
             'gambar.max' => 'Ukuran gambar maksimal 2MB.',

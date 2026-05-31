@@ -95,7 +95,7 @@
                 <div class="laporan-stat-icon"><i class="fa-solid fa-bag-shopping"></i></div>
                 <div>
                     <div class="laporan-stat-label">Laba Bersih</div>
-                    <div class="laporan-stat-value">{{ $formatRingkas(max(0, $labaBersih)) }}</div>
+                    <div class="laporan-stat-value">{{ $formatRingkas($labaBersih) }}</div>
                 </div>
             </div>
             <div class="laporan-stat-card">

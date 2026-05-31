@@ -24,8 +24,14 @@
     <br><br>
 
     <input type="number"
-           name="harga"
-           placeholder="Harga">
+           name="harga_beli"
+           placeholder="Harga Beli">
+
+    <br><br>
+
+    <input type="number"
+           name="harga_jual"
+           placeholder="Harga Jual">
 
     <br><br>
 

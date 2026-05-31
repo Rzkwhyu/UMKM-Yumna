@@ -45,7 +45,7 @@
                     data-nama="{{ strtolower($item->nama_barang) }}"
                     data-nama-label="{{ $item->nama_barang }}"
                     data-kategori="{{ $item->kategori->kategori ?? '-' }}"
-                    data-harga="{{ $item->harga }}"
+                    data-harga="{{ $item->harga_jual }}"
                     data-stok="{{ $item->stok }}"
                     data-gambar="{{ $item->gambar ? asset($item->gambar) : '' }}"
                 >
@@ -59,7 +59,7 @@
                     <div class="pos-product-info">
                         <h3>{{ $item->nama_barang }}</h3>
                         <div class="pos-kategori">{{ $item->kategori->kategori ?? '-' }}</div>
-                        <div class="pos-harga">Rp{{ number_format($item->harga, 0, ',', '.') }}</div>
+                        <div class="pos-harga">Rp{{ number_format($item->harga_jual, 0, ',', '.') }}</div>
                     </div>
                     <div class="pos-qty-control">
                         <button type="button" class="pos-qty-btn pos-qty-minus" aria-label="Kurangi" disabled>−</button>

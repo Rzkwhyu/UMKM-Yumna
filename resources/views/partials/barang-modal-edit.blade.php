@@ -55,18 +55,36 @@
             <div class="kategori-modal-divider"></div>
 
             <div class="kategori-modal-field kategori-modal-field--row">
-                <label for="editInputHarga">Harga</label>
+                <label for="editInputHargaBeli">Harga Beli</label>
                 <input
                     type="number"
-                    name="harga"
-                    id="editInputHarga"
-                    value="{{ old('harga', $editBarang->harga ?? '') }}"
-                    placeholder="Masukan Harga..."
+                    name="harga_beli"
+                    id="editInputHargaBeli"
+                    value="{{ old('harga_beli', $editBarang->harga_beli ?? '') }}"
+                    placeholder="Masukan Harga Beli..."
                     min="0"
                     required
                 >
             </div>
-            @error('harga')
+            @error('harga_beli')
+                <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
+            @enderror
+
+            <div class="kategori-modal-divider"></div>
+
+            <div class="kategori-modal-field kategori-modal-field--row">
+                <label for="editInputHargaJual">Harga Jual</label>
+                <input
+                    type="number"
+                    name="harga_jual"
+                    id="editInputHargaJual"
+                    value="{{ old('harga_jual', $editBarang->harga_jual ?? '') }}"
+                    placeholder="Masukan Harga Jual..."
+                    min="0"
+                    required
+                >
+            </div>
+            @error('harga_jual')
                 <span class="kategori-modal-error kategori-modal-error--block">{{ $message }}</span>
             @enderror
 

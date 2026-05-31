@@ -46,14 +46,13 @@ class LaporanKeuanganController extends Controller
             ->get();
 
         $totalPendapatan = (int) $transaksi->sum('total_harga');
-        $totalPengeluaran = (int) $stokMasuk->sum(
-            fn ($row) => $row->qty * (int) ($row->barang?->harga ?? 0)
-        );
-        $labaBersih = $totalPendapatan - $totalPengeluaran;
+        $totalHpp = $this->hitungHppPenjualan($transaksi);
+        $totalPengeluaran = $this->hitungPembelianBarang($stokMasuk);
+        $labaBersih = $totalPendapatan - $totalHpp;
         $totalPenjualan = $totalPendapatan;
 
         $grafikBulanan = $this->buildGrafikBulanan($mulai, $selesai, $transaksi, $stokMasuk);
-        $ringkasanDonut = $this->buildRingkasanDonut($totalPendapatan, $totalPengeluaran);
+        $ringkasanDonut = $this->buildRingkasanDonut($totalPendapatan, $totalPengeluaran, $totalHpp);
         $pendapatanTerbesar = $this->buildPendapatanTerbesar($transaksi);
         $pengeluaranTerbesar = $this->buildPengeluaranTerbesar($stokMasuk);
 
@@ -70,6 +69,26 @@ class LaporanKeuanganController extends Controller
             'pendapatanTerbesar',
             'pengeluaranTerbesar'
         ));
+    }
+
+    /**
+     * Hitung HPP dari barang terjual (harga beli × qty).
+     */
+    private function hitungHppPenjualan(Collection $transaksi): int
+    {
+        return (int) $transaksi->sum(
+            fn ($row) => $row->qty * (int) ($row->barang?->harga_beli ?? 0)
+        );
+    }
+
+    /**
+     * Hitung total pembelian barang masuk (harga beli × qty).
+     */
+    private function hitungPembelianBarang(Collection $stokMasuk): int
+    {
+        return (int) $stokMasuk->sum(
+            fn ($row) => $row->qty * (int) ($row->barang?->harga_beli ?? 0)
+        );
     }
 
     /**
@@ -108,7 +127,7 @@ class LaporanKeuanganController extends Controller
 
                     return $tanggal->between($monthStart, $monthEnd);
                 })
-                ->sum(fn ($row) => $row->qty * (int) ($row->barang?->harga ?? 0));
+                ->sum(fn ($row) => $row->qty * (int) ($row->barang?->harga_beli ?? 0));
 
             $cursor->addMonth();
         }
@@ -127,7 +146,7 @@ class LaporanKeuanganController extends Controller
      *
      * @return array<int, array{label: string, nilai: int, warna: string}>
      */
-    private function buildRingkasanDonut(int $pendapatan, int $pengeluaran): array
+    private function buildRingkasanDonut(int $pendapatan, int $pembelian, int $hpp): array
     {
         return [
             [
@@ -136,13 +155,13 @@ class LaporanKeuanganController extends Controller
                 'warna' => '#22c55e',
             ],
             [
-                'label' => 'Penjualan Kredit',
-                'nilai' => 0,
+                'label' => 'HPP Penjualan',
+                'nilai' => $hpp,
                 'warna' => '#eab308',
             ],
             [
                 'label' => 'Barang Masuk',
-                'nilai' => $pengeluaran,
+                'nilai' => $pembelian,
                 'warna' => '#3b82f6',
             ],
             [
@@ -186,7 +205,7 @@ class LaporanKeuanganController extends Controller
             ->map(function ($items) {
                 $first = $items->first();
                 $total = $items->sum(
-                    fn ($row) => $row->qty * (int) ($row->barang?->harga ?? 0)
+                    fn ($row) => $row->qty * (int) ($row->barang?->harga_beli ?? 0)
                 );
 
                 return (object) [
