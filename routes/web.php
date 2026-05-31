@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanKeuanganController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,3 +33,4 @@ Route::resource('stokbarang', StokBarangController::class);
 Route::get('transaksi/cetak-nota', [TransaksiController::class, 'cetakNota'])->name('transaksi.cetak-nota');
 Route::resource('transaksi', TransaksiController::class);
 Route::delete('transaksi/nota/hapus', [TransaksiController::class, 'destroyNota'])->name('transaksi.destroy-nota');
+Route::get('laporan', [LaporanKeuanganController::class, 'index'])->name('laporan.index');

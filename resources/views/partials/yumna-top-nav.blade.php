@@ -3,7 +3,7 @@
         ['label' => 'Home', 'route' => 'home', 'active' => 'home'],
         ['label' => 'Transaksi', 'route' => 'transaksi.index', 'active' => 'transaksi.*'],
         ['label' => 'Stok Barang', 'route' => 'stokbarang.index', 'active' => 'stokbarang.*'],
-        ['label' => 'Laporan Keuangan', 'route' => null, 'url' => '#', 'active' => 'laporan.*'],
+        ['label' => 'Laporan Keuangan', 'route' => 'laporan.index', 'active' => 'laporan.*'],
     ];
 
     $moreNav = [
